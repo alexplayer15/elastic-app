@@ -1,0 +1,59 @@
+body{ 
+    background-image: url('elastic_homepage.jpg'); 
+    margin: 0;
+    padding: 0;
+    background-size: cover; 
+    background-position: center;
+    height: 100vh
+}
+
+h1{
+    text-align: center;
+    color: violet;
+    font-weight: bold;
+}
+
+h2{
+    text-align: center;
+    color: violet;
+    font-weight: 700;
+}
+
+.error-message{
+    color: red
+}
+
+.input{
+   background-color: white;
+   border-color: purple;
+}
+
+.label{
+    font-weight: 700;
+    color: white;
+}
+
+.submit-button{
+    background-color: purple;
+    color: white;
+
+}
+
+.sign-up-page-container{
+    display: flex;
+    justify-content: center;
+}
+.logo-container{
+    display: flex;
+    justify-content: center;
+    flex: 1;
+}
+
+.form-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px
+
+}
+

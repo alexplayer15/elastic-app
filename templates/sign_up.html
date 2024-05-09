@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <title>Sign Up Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='create_user_style.css') }}">
+</head>
+<body>
+    <h1>ELASTIC</h1>
+    <h2>Create An Account</h2>
+    <div class ="sign-up-page-container">
+
+        <div class="form-container">
+
+            <form method="post" action="/signup" id="signup-form">
+            <input class="input" type="text" id="firstname" name="firstname" placeholder="First Name"><br><br>
+            <div class = "error" id="errorContainer-firstname"></div>
+            
+            <input class="input" type="text" id="lastname" name="lastname" placeholder="Last Name"><br><br>
+            <div class="error" id="errorContainer-lastname"></div>
+
+            <input class="input" type="text" id="email" name="email" placeholder="Email"><br><br>
+            <div class="error" id="errorContainer-email"></div>
+            
+            <input class="input" type="text" id="username" name="username" placeholder="User Name"><br><br>
+            <div class = "error" id="errorContainer-username"></div>
+            
+            <input class="input" type="password" id="password" name="password" placeholder="Password"><br><br>
+            <div class="error" id="errorContainer-password"></div>
+
+            <input class="input" type="password" id="re-password" name="re-password" placeholder="Re-Enter Password"><br><br>
+            <div class="error" id="errorContainer-re-password"></div>
+            
+            <input type="submit" class ="submit-button" id="submit-button">
+            
+            </form>
+        </div>
+    </div>
+
+    
+
+
+    <script src="{{ url_for('static', filename='create_user_validation.js') }}"></script>
+</body>
+</html>

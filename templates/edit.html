@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Edit Your Profile:</h1>
+
+    <form method="post" action="/edit" id="edit-form">
+        <input class="input" type="text" id="bio" name="bio" placeholder="Write a Short Bio"><br><br>
+        <div class = "error" id="errorContainer-bio"></div>
+        
+        <input class="input" type="text" id="location" name="location" placeholder="Where Are You Based?"><br><br>
+        <div class="error" id="errorContainer-location"></div>
+
+        <input class="input" type="text" id="role" name="role" placeholder="What Do You Do?"><br><br>
+        <div class="error" id="errorContainer-role"></div>
+        
+        <input class="input" type="text" id="genre" name="genre" placeholder="What Do You Play?"><br><br>
+        <div class = "error" id="errorContainer-username"></div>
+        
+        <input class="input" type="text" id="equipment" name="equipment" placeholder="What Can You Play?"><br><br>
+        <div class="error" id="errorContainer-password"></div>
+        
+        <input type="submit" class ="edit-button" id="edit-button">
+    </form> 
+
+    
+        <script>
+
+        document.getElementById('create-form').addEventListener('submit',function(event){
+            document.getElementById('create-form').submit();
+            document.getElementById('create-button').disabled = true;
+        })
+        </script>
+
+    
+    <label>Press Here To Delete Your Account:</label>
+    <button><a href="http://127.0.0.1:5000/delete">Delete</a></button>
+   
+</body>
+</html>
