@@ -3,8 +3,8 @@ trigger:
     include:
       - dev
 
-pool:
-  vmImage: 'my-personal-computer'
+pool: 
+  name: 'my-personal-computer'
 
 stages:
 - stage: Build
