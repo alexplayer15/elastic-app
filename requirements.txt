@@ -4,3 +4,4 @@ pytest
 Werkzeug
 Flask-SQLAlchemy
 Flask-Mail
+dotenv
