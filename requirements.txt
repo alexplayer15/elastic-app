@@ -1,0 +1,6 @@
+flask
+pylint
+pytest
+Werkzeug
+Flask-SQLAlchemy
+Flask-Mail
