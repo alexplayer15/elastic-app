@@ -1,3 +1,7 @@
+variables:
+  projectRoot: $(System.DefaultWorkingDirectory)
+  pythonVersion: '3.x'
+
 trigger:
   branches:
     include:
@@ -17,19 +21,23 @@ stages:
     steps:
     - task: UsePythonVersion@0
       inputs:
-        versionSpec: '3.x'
+        versionSpec: '$(pythonVersion)'
         addToPath: true
     - script: |
-        python3 -m pip install --upgrade pip
-        pip install -r requirements.txt
-      displayName: 'Install Python Dependencies'
+        python -m venv antenv
+        source antenv/bin/activate
+        python -m pip install --upgrade pip
+        pip install setup
+        pip install --target="./.python_packages/lib/site-packages" -r ./requirements.txt
+      workingDirectory: $(projectRoot)
+      displayName: "Install requirements"
 
   - job: Linting
     displayName: 'Lint Python Code'
     steps:
     - script: |
         python3 -m pip install pylint
-        pylint *.py
+        pylint *.py 
       displayName: 'Run pylint on Python code'
 
 
@@ -37,7 +45,7 @@ stages:
   #   displayName: 'Run Unit Tests'
   #   steps:
   #   - script: |
-  #       pip install pytest
+  #       pip install pytest pytest-azurepipelines
   #       pytest *.py
   #     displayName: 'Run Pytest'
 
