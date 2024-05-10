@@ -1,7 +1,6 @@
 variables:
   projectRoot: $(System.DefaultWorkingDirectory)
   pythonVersion: '3.x'
-  SQLALCHEMY_DATABASE_URI: $(SQLALCHEMY_DATABASE_URI)
 
 trigger:
   branches:
@@ -53,6 +52,8 @@ stages:
         python3 -m pytest *.py
         exit
       displayName: 'Run Pytest'
+      env:
+        SQLALCHEMY_DATABASE_URI: $(SQLALCHEMY_DATABASE_URI)
 
   # - job: PackageDockerImage
   #   displayName: 'Package Docker Image'
