@@ -19,13 +19,13 @@ stages:
         pip install -r requirements.txt
       displayName: 'Install Python Dependencies'
 
-  # - job: Linting
-  #   displayName: 'Lint Python Code'
-  #   steps:
-  #   - script: |
-  #       pip install pylint
-  #       pylint *.py
-  #     displayName: 'Run pylint on Python code'
+  - job: Linting
+    displayName: 'Lint Python Code'
+    steps:
+    - script: |
+        pip install pylint
+        pylint *.py
+      displayName: 'Run pylint on Python code'
 
   # - job: UnitTesting
   #   displayName: 'Run Unit Tests'
