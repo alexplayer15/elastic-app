@@ -3,8 +3,8 @@ trigger:
     include:
       - dev
 
-pool: 
-  name: 'my-personal-computer'
+pool:
+  vmImage: ubuntu-latest
 
 stages:
 - stage: Build
