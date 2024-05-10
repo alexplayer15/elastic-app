@@ -22,10 +22,6 @@ class User(db.Model):
     equipment=db.Column(db.String(500))
     verified=db.Column(db.Boolean, default=False)
 
-    def __init__(self,user):
-
-        self.user = user
-
     def __repr__(self):
         return f'<User {self.email}>'
 
