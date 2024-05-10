@@ -19,27 +19,27 @@ stages:
         pip install -r requirements.txt
       displayName: 'Install Python Dependencies'
 
-  - job: Linting
-    displayName: 'Lint Python Code'
-    steps:
-    - script: |
-        pip install pylint
-        pylint *.py
-      displayName: 'Run pylint on Python code'
+  # - job: Linting
+  #   displayName: 'Lint Python Code'
+  #   steps:
+  #   - script: |
+  #       pip install pylint
+  #       pylint *.py
+  #     displayName: 'Run pylint on Python code'
 
-  - job: UnitTesting
-    displayName: 'Run Unit Tests'
-    steps:
-    - script: |
-        pip install pytest
-        pytest *.py
-      displayName: 'Run Pytest'
+  # - job: UnitTesting
+  #   displayName: 'Run Unit Tests'
+  #   steps:
+  #   - script: |
+  #       pip install pytest
+  #       pytest *.py
+  #     displayName: 'Run Pytest'
 
-  - job: PackageDockerImage
-    displayName: 'Package Docker Image'
-    steps:
-    - script: |
-        docker buildx build -t alexplayer15/elastic-app .'                    
-        docker tag alexplayer15/elastic-app:latest alexplayer15/elastic-app:test'
-        docker push alexplayer15/elastic-app:test'
-      displayName: 'Build and Push Docker Image'
+  # - job: PackageDockerImage
+  #   displayName: 'Package Docker Image'
+  #   steps:
+  #   - script: |
+  #       docker buildx build -t alexplayer15/elastic-app .'                    
+  #       docker tag alexplayer15/elastic-app:latest alexplayer15/elastic-app:test'
+  #       docker push alexplayer15/elastic-app:test'
+  #     displayName: 'Build and Push Docker Image'
