@@ -28,7 +28,7 @@ stages:
     displayName: 'Lint Python Code'
     steps:
     - script: |
-        pip install pylint
+        python3 -m pip install pylint
         pylint *.py
       displayName: 'Run pylint on Python code'
 
