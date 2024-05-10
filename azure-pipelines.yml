@@ -1,6 +1,7 @@
 variables:
   projectRoot: $(System.DefaultWorkingDirectory)
   pythonVersion: '3.x'
+  SQLALCHEMY_DATABASE_URI: $(SQLALCHEMY_DATABASE_URI)
 
 trigger:
   branches:
