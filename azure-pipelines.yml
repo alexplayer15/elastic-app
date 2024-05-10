@@ -9,11 +9,16 @@ pool:
 stages:
 - stage: Build
   displayName: 'Build Stage'
+
   
   jobs:
   - job: InstallDependencies
     displayName: 'Install Dependencies'
     steps:
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '3.x'
+        addToPath: true
     - script: |
         python3 -m pip install --upgrade pip
         pip install -r requirements.txt
@@ -26,6 +31,7 @@ stages:
         pip install pylint
         pylint *.py
       displayName: 'Run pylint on Python code'
+
 
   # - job: UnitTesting
   #   displayName: 'Run Unit Tests'
