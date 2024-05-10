@@ -95,7 +95,7 @@ def signup():
             db.session.commit()
 
             send_email('Welcome to Our App', [email],
-            f'Thank you for signing up!/n' 
+            f'Thank you for signing up!/n'
             f'Here is your verification link: http://127.0.0.1:5000/verify/{verification_token}')
 
             session['username']=username
