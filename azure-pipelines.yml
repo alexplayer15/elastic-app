@@ -30,15 +30,12 @@ stages:
         pip install setup
         pip install --target="./.python_packages/lib/site-packages" -r ./requirements.txt
       workingDirectory: $(projectRoot)
-      displayName: "Install requirements"
 
-  - job: Linting
-    displayName: 'Lint Python Code'
-    steps:
     - script: |
         python3 -m pip install pylint
         pylint *.py 
-      displayName: 'Run pylint on Python code'
+        
+      displayName: 'Run pylint after install dependencies'
 
 
   # - job: UnitTesting
