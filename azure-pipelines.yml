@@ -19,6 +19,7 @@ stages:
   # - job: InstallDependencies
   #   displayName: 'Install Dependencies'
   #   steps:
+    
   #   - task: UsePythonVersion@0
   #     inputs:
   #       versionSpec: '$(pythonVersion)'
@@ -45,15 +46,22 @@ stages:
   - job: UnitTesting
     displayName: 'Run Unit Tests'
     steps:
-      - script: |
-          echo "export DB_URI=$(SQLALCHEMY_DATABASE_URI)" >> $HOME/.bashrc
+     - task: AzureKeyVault@2
+       inputs:
+        azureSubscription: 'elasticConnection'
+        KeyVaultName: 'kv-elastic-alp-uks'
+        SecretsFilter: '*'
+        RunAsPreJob: true
+
+     - script: |
           python3 -m venv test
           . test/bin/activate &&
           python3 -m pip install -r requirements.txt &&
-          export DB_URI=$(SQLALCHEMY_DATABASE_URI) &&
+          export DB_URI=$(DB_URI)
+          
           python3 -m pytest *.py
           exit
-        displayName: 'Run Pytest'
+       displayName: 'Run Pytest'
    
 
   # - job: PackageDockerImage
