@@ -17,18 +17,18 @@ stages:
 
   
   jobs:
-  # - job: InstallDependencies
-  #   displayName: 'Install Dependencies'
-  #   steps:
+  - job: InstallDependencies
+    displayName: 'Install Dependencies'
+    steps:
     
-  #   - task: UsePythonVersion@0
-  #     inputs:
-  #       versionSpec: '$(pythonVersion)'
-  #       addToPath: true
-  #   - script: |
-  #       python3 -m pip install --upgrade pip
-  #       python3 -m pip install -r requirements.txt
-  #     displayName: 'Install dependencies'
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '$(pythonVersion)'
+        addToPath: true
+    - script: |
+        python3 -m pip install --upgrade pip
+        python3 -m pip install -r requirements.txt
+      displayName: 'Install dependencies'
     
 
   #   - script: |
