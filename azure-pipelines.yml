@@ -1,4 +1,5 @@
 variables:
+  -group: KeyVault
   projectRoot: $(System.DefaultWorkingDirectory)
   pythonVersion: '3.x'
 
@@ -46,13 +47,6 @@ stages:
   - job: UnitTesting
     displayName: 'Run Unit Tests'
     steps:
-     - task: AzureKeyVault@2
-       inputs:
-        azureSubscription: 'elasticConnection'
-        KeyVaultName: 'kv-elastic-alp-uks'
-        SecretsFilter: 'DB-URI'
-        RunAsPreJob: true
-
      - script: |
           python3 -m venv test
           . test/bin/activate &&
@@ -62,6 +56,8 @@ stages:
           python3 -m pytest *.py
           exit
        displayName: 'Run Pytest'
+       env:
+         DB_URL: $(DB-URI)
    
 
   # - job: PackageDockerImage
