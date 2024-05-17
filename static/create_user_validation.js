@@ -104,7 +104,7 @@ function validateFirstName(firstName) {
         }
     }
 
-    function validateUserName(userName){
+    async function validateUserName(userName){
 
         if (userName === null) {
             
@@ -127,6 +127,22 @@ function validateFirstName(firstName) {
         } else {
             console.log(`Valid name: ${userName}`);
             displayErrorMessage('username',null);
+
+            const form = document.getElementById('signup-form');
+            const formData = new FormData(form);
+
+            const response = await fetch('/signup', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.text();
+            const usernameExists = data.exists;
+    
+            if (usernameExists) {
+                console.log('Username already exists');
+                displayErrorMessage('username', 'Username already exists');
+                return false;
+            }
             return true;
         }
     }

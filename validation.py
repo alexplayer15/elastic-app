@@ -2,6 +2,7 @@
 This method...
 """
 import re
+from models import User
 
 def validate_firstname(firstname):
     """
@@ -46,9 +47,16 @@ def validate_lastname(lastname):
 
 
 def validate_username(username):
+
+    user = User.query.filter_by(username=username).first()
+
     """
     This function...
     """
+    if user:
+        print('That username already exists')
+        return False
+    
     if username == '':
         print('Cannot leave your username blank')
         return False
@@ -70,6 +78,11 @@ def validate_email(email):
     This function...
     """
     email_pattern = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+    existing_email = User.query.filter_by(email=email).first()
+
+    if existing_email:
+        print('Email already exists')
+        return False
 
     if email == '':
         print('Cannot leave your email blank')
