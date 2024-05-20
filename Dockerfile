@@ -9,6 +9,10 @@ COPY requirements.txt .
 # Install the required dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Create directories for static and template files
+RUN mkdir -p /elastic-app/static
+RUN mkdir -p /elastic-app/templates
+
 # Copy the HTML, CSS, and JavaScript files into the container
 COPY templates/*.html /elastic-app/templates
 COPY static/*.css /elastic-app/static
