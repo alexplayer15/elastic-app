@@ -47,16 +47,15 @@ def validate_lastname(lastname):
 
 
 def validate_username(username):
-
-    user = User.query.filter_by(username=username).first()
-
     """
     This function...
     """
+    user = User.query.filter_by(username=username).first()
+
     if user:
         print('That username already exists')
         return False
-    
+
     if username == '':
         print('Cannot leave your username blank')
         return False
