@@ -73,15 +73,16 @@ stages:
   - job: PackageDockerImage
     displayName: 'Package Docker Image'
     steps:
-    - task: AzureKeyVault@2
+    
+    - task: Docker@2
       inputs:
-        azureSubscription: 'elasticConnection'
-        KeyVaultName: 'kv-elastic-alp-uks'
-        SecretsFilter: '*'
+          containerRegistry: 'dockerConnection'
+          repository: 'alexplayer15/elastic-app'
+          command: 'buildAndPush'
+          Dockerfile: '**/Dockerfile'
 
-    - script: |
-        docker buildx build -t alexplayer15/elastic-app .                   
-        docker tag alexplayer15/elastic-app:latest alexplayer15/elastic-app:test
-        echo ${dockerpassword} | docker login -u ${dockerusername} --password-stdin
-        docker push alexplayer15/elastic-app:test
-      displayName: 'Build and Push Docker Image'
+    # - script: |
+    #     docker buildx build -t alexplayer15/elastic-app .                   
+    #     docker tag alexplayer15/elastic-app:latest alexplayer15/elastic-app:test
+    #     docker push alexplayer15/elastic-app:test
+    #   displayName: 'Build and Push Docker Image'
