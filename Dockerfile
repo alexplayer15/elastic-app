@@ -1,26 +1,23 @@
-# Use a lightweight web server as the base image
-FROM nginx:alpine
+# Use Python base image
+FROM python:3.10
 
 # Set the working directory inside the container
-WORKDIR /usr/share/nginx/html
+WORKDIR /elastic-app/
 
-# Remove the default Nginx welcome page
-RUN chown -R nginx:nginx /usr/share/nginx
+COPY requirements.txt .
+
+# Install the required dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the HTML, CSS, and JavaScript files into the container
-COPY sign_up.html .
-COPY create_user_style.css .
-COPY create_user_validation.js .
+COPY templates/*.html /elastic-app/templates
+COPY static/*.css /elastic-app/static
+COPY static/*.js /elastic-app/static
+COPY . /elastic-app/
 
-# Expose port 80 to the outside world
-EXPOSE 80
+# Expose port 5001 to the outside world
+EXPOSE 5001
 
-RUN chown -R nginx:nginx . 
-RUN chmod 755 .
-RUN chmod 644 sign_up.html && \
-    chmod 644 create_user_style.css && \ 
-    chmod 644 create_user_validation.js
-
-# Start Nginx in the foreground
-CMD ["nginx", "-g", "daemon off;", "-c", "/etc/nginx/nginx.conf", "-T"]
+# Run Python app
+CMD ["python3", "main.py"]
 
