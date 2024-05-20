@@ -31,17 +31,20 @@ stages:
       displayName: 'Install dependencies'
     
 
-  #   - script: |
-  #       python3 -m pip list
-  #     displayName: 'List installed packages'
+    - script: |
+        python3 -m pip list
+      displayName: 'List installed packages'
 
-  #   - script: |
-  #       python3 -m venv test
-  #       . test/bin/activate &&
-  #       python3 -m pip install -r requirements.txt &&
-  #       python3 -m pylint *.py
-  #       exit
-  #     displayName: 'Activate virtual environment and run pylint'
+  - job: RunPylint
+    displayName: 'Run Pylint'
+    steps:
+      - script: |
+          python3 -m venv test
+          . test/bin/activate &&
+          python3 -m pip install -r requirements.txt &&
+          python3 -m pylint *.py
+          exit
+        displayName: 'Activate virtual environment and run pylint'
 
 
   - job: UnitTesting
@@ -67,11 +70,18 @@ stages:
          DB_URL: $(DB-URI)
    
 
-  # - job: PackageDockerImage
-  #   displayName: 'Package Docker Image'
-  #   steps:
-  #   - script: |
-  #       docker buildx build -t alexplayer15/elastic-app .'                    
-  #       docker tag alexplayer15/elastic-app:latest alexplayer15/elastic-app:test'
-  #       docker push alexplayer15/elastic-app:test'
-  #     displayName: 'Build and Push Docker Image'
+  - job: PackageDockerImage
+    displayName: 'Package Docker Image'
+    steps:
+    - task: AzureKeyVault@2
+      inputs:
+        azureSubscription: 'elasticConnection'
+        KeyVaultName: 'kv-elastic-alp-uks'
+        SecretsFilter: 'docker*'
+
+    - script: |
+        docker buildx build -t alexplayer15/elastic-app .'                    
+        docker tag alexplayer15/elastic-app:latest alexplayer15/elastic-app:test'
+        docker login -u ${dockerusername} -p ${dockerpassword}
+        docker push alexplayer15/elastic-app:test'
+      displayName: 'Build and Push Docker Image'
