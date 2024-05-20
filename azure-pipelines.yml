@@ -80,8 +80,8 @@ stages:
         SecretsFilter: '*'
 
     - script: |
-        docker buildx build -t alexplayer15/elastic-app .'                    
-        docker tag alexplayer15/elastic-app:latest alexplayer15/elastic-app:test'
-        docker login -u ${dockerusername} -p ${dockerpassword}
-        docker push alexplayer15/elastic-app:test'
+        docker buildx build -t alexplayer15/elastic-app .                   
+        docker tag alexplayer15/elastic-app:latest alexplayer15/elastic-app:test
+        echo ${dockerpassword} | docker login -u ${dockerusername} --password-stdin
+        docker push alexplayer15/elastic-app:test
       displayName: 'Build and Push Docker Image'
