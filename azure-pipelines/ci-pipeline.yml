@@ -17,57 +17,57 @@ stages:
 
   
   jobs:
-  # - job: InstallDependencies
-  #   displayName: 'Install Dependencies'
-  #   steps:
+  - job: InstallDependencies
+    displayName: 'Install Dependencies'
+    steps:
     
-  #   - task: UsePythonVersion@0
-  #     inputs:
-  #       versionSpec: '$(pythonVersion)'
-  #       addToPath: true
-  #   - script: |
-  #       python3 -m pip install --upgrade pip
-  #       python3 -m pip install -r requirements.txt
-  #     displayName: 'Install dependencies'
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '$(pythonVersion)'
+        addToPath: true
+    - script: |
+        python3 -m pip install --upgrade pip
+        python3 -m pip install -r requirements.txt
+      displayName: 'Install dependencies'
     
 
-  #   - script: |
-  #       python3 -m pip list
-  #     displayName: 'List installed packages'
+    - script: |
+        python3 -m pip list
+      displayName: 'List installed packages'
 
-  # - job: RunPylint
-  #   displayName: 'Run Pylint'
-  #   steps:
-  #     - script: |
-  #         python3 -m venv test
-  #         . test/bin/activate &&
-  #         python3 -m pip install -r requirements.txt &&
-  #         python3 -m pylint *.py
-  #         exit
-  #       displayName: 'Activate virtual environment and run pylint'
+  - job: RunPylint
+    displayName: 'Run Pylint'
+    steps:
+      - script: |
+          python3 -m venv test
+          . test/bin/activate &&
+          python3 -m pip install -r requirements.txt &&
+          python3 -m pylint *.py
+          exit
+        displayName: 'Activate virtual environment and run pylint'
 
 
-  # - job: UnitTesting
-  #   displayName: 'Run Unit Tests'
-  #   steps:
-  #   - task: AzureKeyVault@2
-  #     inputs:
-  #       azureSubscription: 'elasticConnection'
-  #       KeyVaultName: 'kv-elastic-alp-uks'
-  #       SecretsFilter: '*'
-  #       RunAsPreJob: true
+  - job: UnitTesting
+    displayName: 'Run Unit Tests'
+    steps:
+    - task: AzureKeyVault@2
+      inputs:
+        azureSubscription: 'elasticConnection'
+        KeyVaultName: 'kv-elastic-alp-uks'
+        SecretsFilter: '*'
+        RunAsPreJob: true
 
-  #   - script: |
-  #         python3 -m venv test
-  #         . test/bin/activate &&
-  #         python3 -m pip install -r requirements.txt &&
-  #         echo "Key Vault secret is:" $(DB-URI)
+    - script: |
+          python3 -m venv test
+          . test/bin/activate &&
+          python3 -m pip install -r requirements.txt &&
+          echo "Key Vault secret is:" $(DB-URI)
           
-  #         python3 -m pytest *.py
-  #         exit
-  #     displayName: 'Run Pytest'
-  #     env:
-  #        DB_URL: $(DB-URI)
+          python3 -m pytest *.py
+          exit
+      displayName: 'Run Pytest'
+      env:
+         DB_URL: $(DB-URI)
    
 
   - job: PackageDockerImage
@@ -81,8 +81,3 @@ stages:
           command: 'buildAndPush'
           Dockerfile: '**/Dockerfile'
 
-    # - script: |
-    #     docker buildx build -t alexplayer15/elastic-app .                   
-    #     docker tag alexplayer15/elastic-app:latest alexplayer15/elastic-app:test
-    #     docker push alexplayer15/elastic-app:test
-    #   displayName: 'Build and Push Docker Image'
