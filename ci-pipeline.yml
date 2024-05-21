@@ -88,12 +88,21 @@ stages:
   - job: DeployContainerToWebApps
     displayName: 'Deploy Container to Web Apps'
     steps:
-          - task: AzureWebAppContainer@1
-            inputs:
-              azureSubscription: 'elasticConnection'
-              appName: 'ElasticAppProject'
-              deployToSlotOrASE: true
-              resourceGroupName: 'rg-alexp'
-              slotName: 'production'
-              containers: 'alexplayer15/elastic-app:$(IMAGE_TAG)'
+        - task: AzureKeyVault@2
+          inputs:
+            azureSubscription: 'elasticConnection'
+            KeyVaultName: 'kv-elastic-alp-uks'
+            SecretsFilter: '*'
+            RunAsPreJob: true
+
+        - task: AzureWebAppContainer@1
+          inputs:
+            azureSubscription: 'elasticConnection'
+            appName: 'ElasticAppProject'
+            deployToSlotOrASE: true
+            resourceGroupName: 'rg-alexp'
+            slotName: 'production'
+            containers: 'alexplayer15/elastic-app:$(IMAGE_TAG)'
+            appSettings: |
+              DB_URI = $(DB-URI)
 
