@@ -1,0 +1,8 @@
+flask
+pylint
+pytest
+Werkzeug
+Flask-SQLAlchemy
+Flask-Mail
+python-dotenv
+psycopg2-binary
