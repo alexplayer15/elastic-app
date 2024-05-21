@@ -68,7 +68,7 @@ stages:
   #         exit
   #     displayName: 'Run Pytest'
   #     env:
-  #        DB_URL: $(DB-URI)
+  #        DB_URL: $(DBURL)
    
 
   - job: PackageDockerImage
@@ -94,6 +94,9 @@ stages:
             KeyVaultName: 'kv-elastic-alp-uks'
             SecretsFilter: '*'
             RunAsPreJob: true
+        - script: |
+              
+              echo "$(DBURL)"
 
         - task: AzureWebAppContainer@1
           inputs:
@@ -104,8 +107,6 @@ stages:
             slotName: 'production'
             containers: 'alexplayer15/elastic-app:$(IMAGE_TAG)'
             appSettings: |
-              DB_URI=$(DB-URI)
-              -script: |
+              DB_URI=$(DBURL)
               
-                  echo "$(DB-URI)"
 
