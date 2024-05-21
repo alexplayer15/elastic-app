@@ -2,6 +2,7 @@ variables:
   -group: KeyVault
   projectRoot: $(System.DefaultWorkingDirectory)
   pythonVersion: '3.x'
+  IMAGE_TAG: test
 
 trigger:
   branches:
@@ -80,6 +81,8 @@ stages:
           repository: 'alexplayer15/elastic-app'
           command: 'buildAndPush'
           Dockerfile: '**/Dockerfile'
+          tags: |
+            $(IMAGE_TAG)
      
 
   - job: DeployContainerToWebApps
@@ -92,5 +95,5 @@ stages:
               deployToSlotOrASE: true
               resourceGroupName: 'rg-alexp'
               slotName: 'production'
-              containers: 'alexplayer15/elastic-app:105'
+              containers: 'alexplayer15/elastic-app:$(IMAGE_TAG)'
 
