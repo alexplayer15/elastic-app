@@ -80,4 +80,5 @@ stages:
           repository: 'alexplayer15/elastic-app'
           command: 'buildAndPush'
           Dockerfile: '**/Dockerfile'
+          
 
