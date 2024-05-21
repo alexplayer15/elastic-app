@@ -110,6 +110,12 @@ stages:
             slotName: 'production'
             containers: 'alexplayer15/elastic-app:$(IMAGE_TAG)'
             appSettings: |
-              DB_URI=$(DBURL)
+                  [
+                    {
+                      "name": "DB_URL",
+                      "value": "$(DBURL)", 
+                      "slotSetting": false
+                    }
+                  ]
               
 
