@@ -4,11 +4,17 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+stages:
+- stage: Build
+  displayName: 'Build Stage'
+  
+  jobs:
+  - job: AzureLogin
+    displayName: 'Login to Azure'
+    steps:
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: 'elasticConnection'
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        inlineScript: 'az login'
