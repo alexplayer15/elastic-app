@@ -109,13 +109,9 @@ stages:
             resourceGroupName: 'rg-alexp'
             slotName: 'production'
             containers: 'alexplayer15/elastic-app:$(IMAGE_TAG)'
-            appSettings: |
-                  [
-                    {
-                      "name": "DB_URL",
-                      "value": "$(DBURL)", 
-                      "slotSetting": false
-                    }
-                  ]
+            appSettings: 
+                    -SQL_ALCHEMY_URL "postgresql://postgres:password@winhost:5432/elastic_app"
+            
+
               
 
