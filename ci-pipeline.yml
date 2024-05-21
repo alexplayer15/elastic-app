@@ -80,5 +80,17 @@ stages:
           repository: 'alexplayer15/elastic-app'
           command: 'buildAndPush'
           Dockerfile: '**/Dockerfile'
-          
+     
+
+  - job: DeployContainerToWebApps
+    displayName: 'Deploy Container to Web Apps'
+    steps:
+          - task: AzureWebAppContainer@1
+            inputs:
+              azureSubscription: 'elasticConnection'
+              appName: 'ElasticAppProject'
+              deployToSlotOrASE: true
+              resourceGroupName: 'rg-alexp'
+              slotName: 'production'
+              containers: 'alexplayer15/elastic-app:105'
 
