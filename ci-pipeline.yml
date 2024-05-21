@@ -105,4 +105,7 @@ stages:
             containers: 'alexplayer15/elastic-app:$(IMAGE_TAG)'
             appSettings: |
               DB_URI=$(DB-URI)
+              -script: |
+              
+                  echo "$(DB-URI)"
 
