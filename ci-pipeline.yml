@@ -95,8 +95,11 @@ stages:
             SecretsFilter: '*'
             RunAsPreJob: true
         - script: |
-              
+              echo "********"
               echo "$(DBURL)"
+              echo "$(dockerusername)"
+              echo "********"
+              echo "********"
 
         - task: AzureWebAppContainer@1
           inputs:
