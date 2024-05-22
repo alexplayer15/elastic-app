@@ -2,7 +2,9 @@ variables:
   -group: KeyVault
   projectRoot: $(System.DefaultWorkingDirectory)
   pythonVersion: '3.x'
-  IMAGE_TAG: test
+  IMAGE_TAG: latest
+  LOGIN_SERVER: elasticcontainerregistry.azurecr.io
+  REPOSITORY: test/alexplayer15/elastic-app
 
 trigger:
   branches:
@@ -38,10 +40,9 @@ stages:
           inputs:
             azureSubscription: 'elasticConnection'
             appName: 'ElasticAppProject'
-            deployToSlotOrASE: true
             resourceGroupName: 'rg-alexp'
             slotName: 'production'
-            containers: 'alexplayer15/elastic-app:$(IMAGE_TAG)'
+            containers: '$(LOGIN_SERVER)/$(REPOSITORY):$(IMAGE_TAG)'
             appSettings: 
                     -SQLALCHEMY_DATABASE_URI "$(DBURL)"
                     -WEBSITES_PORT 80
