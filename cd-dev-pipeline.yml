@@ -1,5 +1,13 @@
+variables:
+  -group: KeyVault
+  projectRoot: $(System.DefaultWorkingDirectory)
+  pythonVersion: '3.x'
+  IMAGE_TAG: test
+
 trigger:
-- dev
+  branches:
+    include:
+      - dev
 
 pool:
   vmImage: ubuntu-latest
