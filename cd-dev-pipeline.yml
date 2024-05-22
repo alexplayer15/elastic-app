@@ -45,7 +45,7 @@ stages:
             containers: '$(LOGIN_SERVER)/$(REPOSITORY):$(IMAGE_TAG)'
             appSettings: 
                     -SQLALCHEMY_DATABASE_URI "$(DBURL)"
-                    -WEBSITES_CONTAINER_START_TIME_LIMIT:1500
+                    -WEBSITES_CONTAINER_START_TIME_LIMIT 1500
                     -PORT 80
                     -WEBSITES_PORT 80
             
