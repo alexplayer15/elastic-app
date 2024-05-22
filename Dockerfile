@@ -19,8 +19,8 @@ COPY static/*.css /elastic-app/static
 COPY static/*.js /elastic-app/static
 COPY . /elastic-app/
 
-# Expose port 5001 to the outside world
-EXPOSE 5001
+# Expose port 80 to the outside world
+EXPOSE 80
 
 ENV SQLALCHEMY_DATABASE_URI postgresql://postgres:password@winhost:5432/elastic_app
 
