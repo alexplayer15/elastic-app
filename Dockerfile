@@ -22,6 +22,8 @@ COPY . /elastic-app/
 # Expose port 5001 to the outside world
 EXPOSE 5001
 
+ENV SQLALCHEMY_DATABASE_URI postgresql://postgres:password@winhost:5432/elastic_app
+
 # Run Python app
-CMD ["python3", "main.py"]
+CMD ["python", "main.py"]
 

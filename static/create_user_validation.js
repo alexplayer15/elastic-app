@@ -111,7 +111,6 @@ function validateFirstName(firstName) {
             console.log('Cancelled or no input provided');
             return false;
         }
-
         if (userName.trim() === '') {
             console.log('Please enter your Username');
             displayErrorMessage('username','Please enter your Username');
@@ -128,21 +127,21 @@ function validateFirstName(firstName) {
             console.log(`Valid name: ${userName}`);
             displayErrorMessage('username',null);
 
-            const form = document.getElementById('signup-form');
-            const formData = new FormData(form);
+            // const form = document.getElementById('signup-form');
+            // const formData = new FormData(form);
 
-            const response = await fetch('/signup', {
-                method: 'POST',
-                body: formData
-            });
-            const data = await response.text();
-            const usernameExists = data.exists;
+            // const response = await fetch('/signup', {
+            //     method: 'POST',
+            //     body: formData
+            // });
+            // const data = await response.text();
+            // const usernameExists = data.exists;
     
-            if (usernameExists) {
-                console.log('Username already exists');
-                displayErrorMessage('username', 'Username already exists');
-                return false;
-            }
+            // if (usernameExists) {
+            //     console.log('Username already exists');
+            //     displayErrorMessage('username', 'Username already exists');
+            //     return false;
+            // }
             return true;
         }
     }
@@ -203,7 +202,7 @@ function validateFirstName(firstName) {
         }
     }
   
-document.getElementById('signup-form').addEventListener('submit',function(event){
+document.getElementById('signup-form').addEventListener('submit', function(event){
 
     const firstNameInput = document.getElementById('firstname')
     const firstName = firstNameInput.value
