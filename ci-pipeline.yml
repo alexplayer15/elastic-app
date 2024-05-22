@@ -111,7 +111,7 @@ stages:
             containers: 'alexplayer15/elastic-app:$(IMAGE_TAG)'
             appSettings: 
                     -SQLALCHEMY_DATABASE_URI "$(DBURL)"
-                    -Port 80
+                    -WEBSITES_PORT 80
             
 
               
