@@ -84,6 +84,14 @@ stages:
           tags: |
             $(IMAGE_TAG)
      
+      # - task: Docker@2
+      #   inputs:
+      #     containerRegistry: 'registryConnection'
+      #     repository: 'elastic-app-repo'
+      #     command: 'buildAndPush'
+      #     Dockerfile: '**/Dockerfile'
+      #     tags: |
+      #         $(IMAGE_TAG)
 
   - job: DeployContainerToWebApps
     displayName: 'Deploy Container to Web Apps'
@@ -111,7 +119,9 @@ stages:
             containers: 'alexplayer15/elastic-app:$(IMAGE_TAG)'
             appSettings: 
                     -SQLALCHEMY_DATABASE_URI "$(DBURL)"
-                    -Port 5001
+                    -WEBSITES_PORT 80
+                    -WEBSITED_PORT:80
+                    -Port 80
             
 
               
