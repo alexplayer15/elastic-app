@@ -5,16 +5,37 @@ pool:
   vmImage: ubuntu-latest
 
 stages:
-- stage: Build
-  displayName: 'Build Stage'
+- stage: Deploy
+  displayName: 'Deploy Stage'
   
   jobs:
-  - job: AzureLogin
-    displayName: 'Login to Azure'
+        
+  - job: DeployContainerToWebApps
+    displayName: 'Deploy Container to Web Apps'
     steps:
-    - task: AzureCLI@2
-      inputs:
-        azureSubscription: 'elasticConnection'
-        scriptType: 'bash'
-        scriptLocation: 'inlineScript'
-        inlineScript: 'az login'
+        - task: AzureKeyVault@2
+          inputs:
+            azureSubscription: 'elasticConnection'
+            KeyVaultName: 'kv-elastic-alp-uks'
+            SecretsFilter: '*'
+            RunAsPreJob: true
+        - script: |
+              echo "********"
+              echo "$(DBURL)"
+              echo "$(dockerusername)"
+              echo "********"
+              echo "********"
+
+        - task: AzureWebAppContainer@1
+          inputs:
+            azureSubscription: 'elasticConnection'
+            appName: 'ElasticAppProject'
+            deployToSlotOrASE: true
+            resourceGroupName: 'rg-alexp'
+            slotName: 'production'
+            containers: 'alexplayer15/elastic-app:$(IMAGE_TAG)'
+            appSettings: 
+                    -SQLALCHEMY_DATABASE_URI "$(DBURL)"
+                    -WEBSITES_PORT 80
+                    -Port 80
+            
