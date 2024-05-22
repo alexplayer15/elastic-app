@@ -75,23 +75,23 @@ stages:
     displayName: 'Package Docker Image'
     steps:
     
-    # - task: Docker@2
-    #   inputs:
-    #       containerRegistry: 'dockerConnection'
-    #       repository: 'alexplayer15/elastic-app'
-    #       command: 'buildAndPush'
-    #       Dockerfile: '**/Dockerfile'
-    #       tags: |
-    #         $(IMAGE_TAG)
-     
-      - task: Docker@2
-        inputs:
-          containerRegistry: 'registryConnection'
-          repository: 'elastic-app-repo'
+    - task: Docker@2
+      inputs:
+          containerRegistry: 'dockerConnection'
+          repository: 'alexplayer15/elastic-app'
           command: 'buildAndPush'
           Dockerfile: '**/Dockerfile'
           tags: |
-              $(IMAGE_TAG)
+            $(IMAGE_TAG)
+     
+      # - task: Docker@2
+      #   inputs:
+      #     containerRegistry: 'registryConnection'
+      #     repository: 'elastic-app-repo'
+      #     command: 'buildAndPush'
+      #     Dockerfile: '**/Dockerfile'
+      #     tags: |
+      #         $(IMAGE_TAG)
 
   - job: DeployContainerToWebApps
     displayName: 'Deploy Container to Web Apps'
