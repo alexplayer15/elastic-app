@@ -49,14 +49,25 @@ stages:
         #             -Port 80
         #             -WEBSITES_PORT 80
 
-        - task: AzureWebAppContainer@1
-          inputs:
-            azureSubscription: 'elasticConnection'
-            appName: 'ElasticAppProject'
-            resourceGroupName: 'rg-alexp'
-            slotName: 'production'
-            containers: alexplayer15/flask-app:test
-            appSettings: 
-                    -Port 5001
-                    -WEBSITES_PORT 5001
+        # - task: AzureWebAppContainer@1
+        #   inputs:
+        #     azureSubscription: 'elasticConnection'
+        #     appName: 'ElasticAppProject'
+        #     resourceGroupName: 'rg-alexp'
+        #     slotName: 'production'
+        #     containers: alexplayer15/flask-app:test
+        #     appSettings: 
+        #             -Port 5001
+        #             -WEBSITES_PORT 5001
+
+          - task: AzureWebAppContainer@1
+            inputs:
+              azureSubscription: 'elasticConnection'
+              appName: 'ElasticAppProject'
+              resourceGroupName: 'rg-alexp'
+              slotName: 'production'
+              containers: alexplayer15/elastic-app:test
+              appSettings: 
+                      -Port 80
+                      -WEBSITES_PORT 80
             
