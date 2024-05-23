@@ -22,8 +22,6 @@ COPY . /elastic-app/
 # Expose port 80 to the outside world
 EXPOSE 80
 
-ENV SQLALCHEMY_DATABASE_URI postgresql://postgres:password@winhost:5432/elastic_app
-
 # Run Python app
 CMD ["python", "main.py"]
 
