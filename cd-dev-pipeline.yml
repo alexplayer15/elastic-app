@@ -74,7 +74,7 @@ stages:
             appSettings: 
                     -Port 5001
                     -WEBSITES_PORT 5001
-                    -SQLALCHEMY_DATABASE_URI $(DBURL)
+                    -DBURL $(DBURL)
                     -SECRET_KEY $(APP-SECRET-KEY)
                     -MAIL_DEFAULT_SENDER $(EMAIL-USERNAME)
                     -MAIL_USERNAME $(EMAIL-USERNAME)
