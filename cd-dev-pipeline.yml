@@ -68,6 +68,6 @@ stages:
               slotName: 'production'
               containers: alexplayer15/elastic-app:test
               appSettings: 
-                      -Port 80
-                      -WEBSITES_PORT 80
+                      -Port 5001
+                      -WEBSITES_PORT 5001
             
