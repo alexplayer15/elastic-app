@@ -23,18 +23,31 @@ stages:
   - job: DeployContainerToWebApps
     displayName: 'Deploy Container to Web Apps'
     steps:
-        - task: AzureKeyVault@2
-          inputs:
-            azureSubscription: 'elasticConnection'
-            KeyVaultName: 'kv-elastic-alp-uks'
-            SecretsFilter: '*'
-            RunAsPreJob: true
-        - script: |
-              echo "********"
-              echo "$(DBURL)"
-              echo "$(dockerusername)"
-              echo "********"
-              echo "********"
+        # - task: AzureKeyVault@2
+        #   inputs:
+        #     azureSubscription: 'elasticConnection'
+        #     KeyVaultName: 'kv-elastic-alp-uks'
+        #     SecretsFilter: '*'
+        #     RunAsPreJob: true
+        # - script: |
+        #       echo "********"
+        #       echo "$(DBURL)"
+        #       echo "$(dockerusername)"
+        #       echo "********"
+        #       echo "********"
+
+        # - task: AzureWebAppContainer@1
+        #   inputs:
+        #     azureSubscription: 'elasticConnection'
+        #     appName: 'ElasticAppProject'
+        #     resourceGroupName: 'rg-alexp'
+        #     slotName: 'production'
+        #     containers: '$(LOGIN_SERVER)/$(REPOSITORY):$(IMAGE_TAG)'
+        #     appSettings: 
+        #             -SQLALCHEMY_DATABASE_URI "$(DBURL)"
+        #             -WEBSITES_CONTAINER_START_TIME_LIMIT 1500
+        #             -Port 80
+        #             -WEBSITES_PORT 80
 
         - task: AzureWebAppContainer@1
           inputs:
@@ -42,10 +55,8 @@ stages:
             appName: 'ElasticAppProject'
             resourceGroupName: 'rg-alexp'
             slotName: 'production'
-            containers: '$(LOGIN_SERVER)/$(REPOSITORY):$(IMAGE_TAG)'
+            containers: alexplayer15/flask-app:test
             appSettings: 
-                    -SQLALCHEMY_DATABASE_URI "$(DBURL)"
-                    -WEBSITES_CONTAINER_START_TIME_LIMIT 1500
-                    -Port 80
-                    -WEBSITES_PORT 80
+                    -Port 5001
+                    -WEBSITES_PORT 5001
             
