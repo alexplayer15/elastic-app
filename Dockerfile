@@ -19,7 +19,7 @@ COPY static/*.css /elastic-app/static
 COPY static/*.js /elastic-app/static
 COPY . /elastic-app/
 
-# Expose port 80 to the outside world
+# Expose port 5001 to the outside world
 EXPOSE 5001
 
 # Run Python app
