@@ -17,7 +17,7 @@ RUN mkdir -p /elastic-app/templates
 COPY templates/*.html /elastic-app/templates
 COPY static/*.css /elastic-app/static
 COPY static/*.js /elastic-app/static
-COPY .env /elastic-app/
+COPY static/*.jpg /elastic-app/static
 COPY *.py /elastic-app/
 
 # Expose port 5001 to the outside world
