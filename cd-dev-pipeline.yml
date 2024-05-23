@@ -5,6 +5,10 @@ variables:
   IMAGE_TAG: latest
   LOGIN_SERVER: elasticcontainerregistry.azurecr.io
   REPOSITORY: test/alexplayer15/elastic-app
+  MAIL_SERVER: smtp.fastmail.com
+  MAIL_PORT: 465
+  MAIL_USE_TLS: False
+  MAIL_USE_SSL: True
 
 trigger:
   branches:
@@ -23,18 +27,18 @@ stages:
   - job: DeployContainerToWebApps
     displayName: 'Deploy Container to Web Apps'
     steps:
-        # - task: AzureKeyVault@2
-        #   inputs:
-        #     azureSubscription: 'elasticConnection'
-        #     KeyVaultName: 'kv-elastic-alp-uks'
-        #     SecretsFilter: '*'
-        #     RunAsPreJob: true
-        # - script: |
-        #       echo "********"
-        #       echo "$(DBURL)"
-        #       echo "$(dockerusername)"
-        #       echo "********"
-        #       echo "********"
+        - task: AzureKeyVault@2
+          inputs:
+            azureSubscription: 'elasticConnection'
+            KeyVaultName: 'kv-elastic-alp-uks'
+            SecretsFilter: '*'
+            RunAsPreJob: true
+        - script: |
+              echo "********"
+              echo "$(DBURL)"
+              echo "$(dockerusername)"
+              echo "********"
+              echo "********"
 
         # - task: AzureWebAppContainer@1
         #   inputs:
@@ -60,14 +64,15 @@ stages:
         #             -Port 5001
         #             -WEBSITES_PORT 5001
 
-          - task: AzureWebAppContainer@1
-            inputs:
-              azureSubscription: 'elasticConnection'
-              appName: 'ElasticAppProject'
-              resourceGroupName: 'rg-alexp'
-              slotName: 'production'
-              containers: alexplayer15/elastic-app:test
-              appSettings: 
-                      -Port 5001
-                      -WEBSITES_PORT 5001
+        - task: AzureWebAppContainer@1
+          inputs:
+            azureSubscription: 'elasticConnection'
+            appName: 'ElasticAppProject'
+            resourceGroupName: 'rg-alexp'
+            slotName: 'production'
+            containers: alexplayer15/elastic-app:test
+            appSettings: 
+                    -Port 5001
+                    -WEBSITES_PORT 5001
+                      
             
