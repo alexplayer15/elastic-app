@@ -13,7 +13,7 @@ load_dotenv()
 app=Flask(__name__, static_folder='static')
 
 app.config['SECRET_KEY']=os.getenv('APP-SECRET-KEY')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DBURL')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
 app.config['MAIL_SERVER']="smtp.fastmail.com"
 app.config['MAIL_PORT']=465
 app.config['MAIL_USERNAME']=os.getenv('EMAIL-USERNAME')
