@@ -1,14 +1,63 @@
+variables:
+  -group: KeyVault
+  projectRoot: $(System.DefaultWorkingDirectory)
+  pythonVersion: '3.x'
+  IMAGE_TAG: latest
+  LOGIN_SERVER: elasticcontainerregistry.azurecr.io
+  REPOSITORY: test/alexplayer15/elastic-app
+  MAIL_SERVER: smtp.fastmail.com
+  MAIL_PORT: 465
+  MAIL_USE_TLS: False
+  MAIL_USE_SSL: True
+
 trigger:
-- dev
+  branches:
+    include:
+      - dev
 
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+stages:
+- stage: Deploy
+  displayName: 'Deploy Stage'
+  
+  jobs:
+        
+  - job: DeployContainerToWebApps
+    displayName: 'Deploy Container to Web Apps'
+    steps:
+        - task: AzureKeyVault@2
+          inputs:
+            azureSubscription: 'bicepConnection'
+            KeyVaultName: 'kv-bicep-secrets'
+            SecretsFilter: '*'
+            RunAsPreJob: true
+        - script: |
+              echo "********"
+              echo "$(DBURL)"
+              echo "********"
+              echo "********"
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+        - task: AzureWebAppContainer@1
+          inputs:
+            azureSubscription: 'bicepConnection'
+            appName: 'ElasticAppProject'
+            resourceGroupName: 'rg-alexp'
+            slotName: 'production'
+            containers: alexplayer15/elastic-app:test
+            appSettings: 
+                    -Port 5001
+                    -WEBSITES_PORT 5001
+                    -SQLALCHEMY_DATABASE_URI $(DBURL)
+                    -SECRET_KEY $(APP-SECRET-KEY)
+                    -MAIL_DEFAULT_SENDER $(EMAIL-USERNAME)
+                    -MAIL_USERNAME $(EMAIL-USERNAME)
+                    -MAIL_PASSWORD $(EMAIL-PASSWORD)
+                    -MAIL_SERVER $(MAIL_SERVER)
+                    -MAIL_PORT $(MAIL_PORT)
+                    -MAIL_USE_TLS $(MAIL_USE_TLS)
+                    -MAIL_USE_SSL $(MAIL_USE_SSL)
+                    
+                      
+            

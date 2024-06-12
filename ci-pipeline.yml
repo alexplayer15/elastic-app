@@ -2,6 +2,7 @@ variables:
   -group: KeyVault
   projectRoot: $(System.DefaultWorkingDirectory)
   pythonVersion: '3.x'
+  IMAGE_TAG: test
 
 trigger:
   branches:
@@ -67,7 +68,7 @@ stages:
   #         exit
   #     displayName: 'Run Pytest'
   #     env:
-  #        DB_URL: $(DB-URI)
+  #        DB_URL: $(DBURL)
    
 
   - job: PackageDockerImage
@@ -80,9 +81,19 @@ stages:
           repository: 'alexplayer15/elastic-app'
           command: 'buildAndPush'
           Dockerfile: '**/Dockerfile'
+          tags: |
+            $(IMAGE_TAG)
+     
+      # - task: Docker@2
+      #   inputs:
+      #     containerRegistry: 'registryConnection'
+      #     repository: 'elastic-app-repo'
+      #     command: 'buildAndPush'
+      #     Dockerfile: '**/Dockerfile'
+      #     tags: |
+      #         $(IMAGE_TAG)
 
-    # - script: |
-    #     docker buildx build -t alexplayer15/elastic-app .                   
-    #     docker tag alexplayer15/elastic-app:latest alexplayer15/elastic-app:test
-    #     docker push alexplayer15/elastic-app:test
-    #   displayName: 'Build and Push Docker Image'
+
+
+              
+

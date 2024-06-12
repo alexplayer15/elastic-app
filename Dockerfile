@@ -17,11 +17,12 @@ RUN mkdir -p /elastic-app/templates
 COPY templates/*.html /elastic-app/templates
 COPY static/*.css /elastic-app/static
 COPY static/*.js /elastic-app/static
-COPY . /elastic-app/
+COPY static/*.jpg /elastic-app/static
+COPY *.py /elastic-app/
 
 # Expose port 5001 to the outside world
 EXPOSE 5001
 
 # Run Python app
-CMD ["python3", "main.py"]
+CMD ["python", "main.py"]
 

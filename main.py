@@ -12,15 +12,15 @@ load_dotenv()
 
 app=Flask(__name__, static_folder='static')
 
-app.config['SECRET_KEY']=os.getenv('APP_SECRET_KEY')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DB_URL')
+app.config['SECRET_KEY']=os.getenv('APP-SECRET-KEY')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
 app.config['MAIL_SERVER']="smtp.fastmail.com"
 app.config['MAIL_PORT']=465
-app.config['MAIL_USERNAME']=os.getenv('EMAIL_USERNAME')
-app.config['MAIL_PASSWORD']=os.getenv('EMAIL_PASSWORD')
+app.config['MAIL_USERNAME']=os.getenv('EMAIL-USERNAME')
+app.config['MAIL_PASSWORD']=os.getenv('EMAIL-PASSWORD')
 app.config['MAIL_USE_TLS']=False
 app.config['MAIL_USE_SSL']=True
-app.config['MAIL_DEFAULT_SENDER'] = os.getenv('EMAIL_USERNAME')
+app.config['MAIL_DEFAULT_SENDER'] = os.getenv('EMAIL-USERNAME')
 
 db.init_app(app)
 mail.init_app(app)
@@ -39,5 +39,12 @@ app.register_blueprint(user_bp,\
                        secret_key=app.config['SECRET_KEY'],\
                        database_url=app.config['SQLALCHEMY_DATABASE_URI'])
 
-if __name__=="__main__":
-    app.run(debug=True)
+@app.route('/health')
+def health():
+    """
+    This function...
+    """
+    return 'Healthy', 200
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=5001, debug=True)
